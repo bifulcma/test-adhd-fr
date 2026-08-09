@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test de dépistage TDAH · Usage familial</title>
+<style>
+  :root{
+    --bg:#FAF9F5; --card:#FFFFFF; --ink:#29261F; --ink-soft:#6b6355;
+    --accent:#C2664A; --accent-deep:#A34E35; --accent-wash:#FBF0EA;
+    --line:#E8E4DC; --ok:#4a7c59;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;display:flex;flex-direction:column;align-items:center;padding:28px 16px 60px;min-height:100vh;line-height:1.55}
+  .wrap{width:100%;max-width:640px}
+  h1,h2,.serif{font-family:Georgia,"Times New Roman",serif;font-weight:400}
+  .screen{display:none;animation:fade .35s ease}
+  .screen.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .kicker{text-align:center;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:14px}
+  h1{font-size:clamp(28px,6vw,38px);line-height:1.2;text-align:center;margin-bottom:16px}
+  h1 em{color:var(--accent-deep);font-style:italic}
+  .intro p{color:var(--ink-soft);text-align:center;font-size:16px;margin-bottom:10px}
+  .intro p b{color:var(--ink)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 22px;box-shadow:0 1px 3px rgba(41,38,31,.05),0 16px 32px -20px rgba(41,38,31,.15);margin-bottom:16px}
+  .card h2{font-size:20px;color:var(--ink);margin-bottom:4px}
+  .card .sub{color:var(--ink-soft);font-size:14px;margin-bottom:16px}
+  .step-tag{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:6px}
+  .item{margin-bottom:18px}
+  .item .q{font-size:15px;margin-bottom:8px}
+  .item .q .n{color:var(--accent);font-weight:600;margin-right:6px}
+  .scale{display:flex;gap:6px}
+  .scale button{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 2px;font-size:11px;cursor:pointer;color:var(--ink-soft);font-family:inherit;transition:all .15s}
+  .scale button b{display:block;font-size:14px;color:var(--ink)}
+  .scale button.sel{background:var(--accent);border-color:var(--accent);color:#fff}
+  .scale button.sel b{color:#fff}
+  .scale button.sel:hover{background:var(--accent-deep);border-color:var(--accent-deep)}
+  .nav{display:flex;gap:10px;margin-top:20px}
+  .btn{flex:1;padding:14px;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;transition:transform .12s}
+  .btn:active{transform:scale(.98)}
+  .btn.primary{background:var(--accent);color:#fff}
+  .btn.primary:hover{background:var(--accent-deep)}
+  .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink-soft)}
+  #bar{height:4px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:14px}
+  #bar i{display:block;height:100%;width:0%;background:var(--accent);transition:width .3s}
+  #cnt{text-align:center;font-size:12px;color:var(--ink-soft);margin-bottom:8px;letter-spacing:.1em}
+  .res-sec{margin:14px 0}
+  .res-sec h3{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+  .res-sec p,.res-sec li{font-size:15px;color:var(--ink)}
+  .res-sec ul{list-style:none}
+  .res-sec li{padding:4px 0 4px 22px;position:relative}
+  .res-sec li::before{content:"";position:absolute;left:0;top:12px;width:9px;height:2px;background:var(--accent)}
+  .verdict{background:var(--accent-wash);border:1px solid #ecc9b8;border-radius:14px;padding:18px;text-align:center;margin:16px 0}
+  .verdict .big{font-family:Georgia,serif;font-size:26px;color:var(--accent-deep)}
+  .verdict p{font-size:15px;color:var(--ink);margin-top:6px}
+  .checks{margin:10px 0}
+  .checks div{padding:7px 0 7px 30px;position:relative;font-size:15px;color:var(--ink-soft)}
+  .checks div.yes{color:var(--ink)}
+  .checks div::before{content:"○";position:absolute;left:4px;color:var(--accent)}
+  .checks div.yes::before{content:"●";color:var(--ok)}
+  .foot{margin-top:22px;text-align:center;color:#a99f8c;font-size:12px;line-height:1.6}
+  .note{background:#fdf6ee;border:1px solid #ecd9bd;border-radius:10px;padding:10px 14px;font-size:13px;color:#7a5c3a;margin:12px 0}
+  @media print{
+    body{background:#fff;padding:0}
+    .screen{display:none!important}
+    #print-view{display:block!important}
+    .card{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}
+  }
+  #print-view{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<section id="s-intro" class="screen active">
+  <div class="kicker">Test de dépistage</div>
+  <h1>TDAH chez l'adulte<br><em>usage familial privé</em></h1>
+  <div class="intro">
+    <p>Batterie de dépistage basée sur l'<b>ASRS v1.1 (OMS)</b>, les critères <b>DSM-5-TR</b>, la structure <b>DIVA-5</b> et le modèle des fonctions exécutives de <b>Barkley</b>.</p>
+    <p>Qui répond : <b>Sections A et B</b> la personne concernée · <b>Section C</b> un proche/partenaire, séparément · <b>Section D</b> la personne concernée.</p>
+  </div>
+  <div class="card">
+    <p style="font-size:14px;color:var(--ink-soft)">Échelle de réponse : <b style="color:var(--ink)">Jamais = 0 · Rarement = 1 · Parfois = 2 · Souvent = 3 · Très souvent = 4</b></p>
+    <p style="font-size:14px;color:var(--ink-soft);margin-top:8px">~15 minutes. Répondez d'instinct : « comment ça va vraiment, en général, ces 6 derniers mois ».</p>
+  </div>
+  <button class="btn primary" onclick="start()">Commencer le test</button>
+  <p class="foot">Test de dépistage à usage familial privé : il oriente, il ne diagnostique pas. Le diagnostic formel relève d'un spécialiste.</p>
+</section>
+
+<section id="s-quiz" class="screen">
+  <div id="cnt"></div>
+  <div id="bar"><i></i></div>
+  <div class="card">
+    <div class="step-tag" id="tag"></div>
+    <h2 id="stitle"></h2>
+    <div class="sub" id="ssub"></div>
+    <div id="items"></div>
+    <div class="nav">
+      <button class="btn ghost" id="prev" onclick="prev()">← Retour</button>
+      <button class="btn primary" id="next" onclick="next()">Suivant →</button>
+    </div>
+  </div>
+</section>
+
+<section id="s-loading" class="screen">
+  <div class="card" style="text-align:center;padding:50px 20px">
+    <div style="font-size:40px">🧮</div>
+    <p style="margin-top:12px;color:var(--ink-soft)">Calcul des scores...</p>
+  </div>
+</section>
+
+<section id="s-result" class="screen">
+  <div class="card" id="rescard"></div>
+  <div class="nav">
+    <button class="btn primary" onclick="window.print()">🖨 Imprimer / PDF</button>
+    <button class="btn ghost" onclick="restart()">Refaire le test</button>
+  </div>
+  <p class="foot">Test de dépistage à usage familial privé — il oriente, il ne diagnostique pas.<br>Sources : Kessler 2005 · DSM-5-TR 2022 · Kooij 2019 (DIVA-5) · Barkley 2015 · Ustun 2017</p>
+</section>
+
+<div id="print-view"></div>
+</div>
+
+<script>
+const SCALE=[["0","Jamais"],["1","Rar."],["2","Parfois"],["3","Souvent"],["4","Très souv."]];
+const SECTIONS=[
+ {id:"A1",title:"Symptômes actuels — Inattention",sub:"6 derniers mois. Dans quelle mesure chacune de ces phrases vous décrit-elle ?",tag:"Section A · 1/4",
+  items:[
+   "Je fais des erreurs d'inattention sur des choses que je sais bien faire (étourderies, détails, fautes de frappe)",
+   "J'ai du mal à maintenir mon attention sur des tâches ennuyeuses — l'esprit vagabonde",
+   "On me dit que je « n'écoute pas » ; je perds le fil au milieu d'une phrase",
+   "Je commence des choses et je les laisse à moitié, je saute des étapes",
+   "J'ai du mal à organiser mes journées et mes priorités — chaos géré à la dernière minute",
+   "Je remets à plus tard les tâches qui demandent une concentration prolongée (paperasse, formulaires, études)",
+   "Je perds souvent des objets : clés, téléphone, documents",
+   "Je me distrais facilement : bruits, notifications, pensées",
+   "Je suis « étourdi » au quotidien (j'oublie des courses, des réponses, des rendez-vous)"
+ ]},
+ {id:"A2",title:"Symptômes actuels — Hyperactivité / Impulsivité",sub:"6 derniers mois. Même échelle.",tag:"Section A · 2/4",
+  items:[
+   "Agitation interne, « moteur toujours allumé » même immobile",
+   "Je me lève quand je devrais rester assis (réunions, dîners, cinéma)",
+   "Je ne reste pas en place dans les conversations : je touche des choses, je bouge les jambes",
+   "Difficile de vraiment se détendre, toujours besoin de faire quelque chose",
+   "Je parle plus que les autres, vite, j'ai du mal à me freiner",
+   "Je réponds avant que l'autre ait fini sa phrase",
+   "J'ai du mal à attendre mon tour (files, conversations, téléphone)",
+   "J'interromps ou je m'immisce dans les conversations des autres",
+   "J'agis par impulsion puis je le regrette (achats, commentaires, décisions)"
+ ]},
+ {id:"B",title:"Comment tu étais enfant (5–12 ans)",sub:"Crucial : le DSM-5 exige des symptômes présents avant 12 ans. Rappelle-toi l'école primaire, les récits des parents, les bulletins.",tag:"Section B · 3/4",
+  items:[
+   "On me disait que je « rêvais les yeux ouverts » ou que je n'étais pas attentif",
+   "Devoirs non finis en classe ou rendus en retard",
+   "Je perdais mon matériel scolaire (trousse, agenda, cahiers)",
+   "Erreurs banales sur des choses que je savais, je sautais les détails",
+   "Je me distrayais avec n'importe quoi (bruit, fenêtre, camarade)",
+   "Jamais immobile sur la chaise, je me levais, je touchais à tout",
+   "Plus remuant que les autres, jeux physiques déplacés",
+   "Je parlais énormément, même hors de propos",
+   "J'interrompais, je répondais avant les questions",
+   "Difficulté à attendre mon tour",
+   "Je ne jouais/travaillais pas en silence longtemps",
+   "Pour les adultes j'étais « un ouragan », « trop vif », « la tête ailleurs »"
+ ]},
+ {id:"C",title:"Version informant (partenaire / parent)",sub:"À FAIRE REMPLIR PAR QUELQU'UN QUI TE CONNAÎT BIEN, séparément. « Il/elle... » 6 derniers mois, même échelle.",tag:"Section C · 4/4",
+  items:[
+   "Se distrait facilement, même dans les conversations importantes",
+   "Laisse les choses à moitié (travaux, tâches, lectures)",
+   "Perd ou égare souvent des objets d'usage quotidien",
+   "Semble « étourdi », oublie des rendez-vous ou des courses acceptées",
+   "A du mal à organiser ses journées sans aide",
+   "Remet beaucoup à plus tard, surtout les choses ennuyeuses",
+   "Est agité, a du mal à rester immobile quand il le faudrait",
+   "Parle plus que les autres, monopolise les conversations",
+   "Répond ou intervient avant que l'autre ait fini",
+   "Réactions impulsives qui le/la déçoivent ensuite aussi",
+   "Oublie ce qu'on vient de lui dire peu avant",
+   "Beaucoup de choses lui « glissent dessus » sans être enregistrées"
+ ]},
+ {id:"D",title:"Impact fonctionnel",sub:"À quel point ces problèmes pèsent-ils AUJOURD'HUI dans chaque domaine ? 0 = pas du tout · 4 = énormément.",tag:"Section D · fin",
+  items:[
+   "Travail / études (délais, qualité, erreurs, conflits)",
+   "Finances (factures en retard, dépenses impulsives, dettes)",
+   "Relations affectives (disputes pour « ne pas écouter », oublis)",
+   "Famille / amis (mêmes schémas avec les proches)",
+   "Conduite (distractions, accidents, amendes)",
+   "Sommeil (endormissement, cycle irrégulier, rumination)",
+   "Organisation domestique (maison en désordre, échéances, courses)",
+   "Cécité au temps (je sous-estime les durées, « 5 minutes » qui en font 40)",
+   "Régulation émotionnelle (crises, hypersensibilité au rejet)",
+   "Estime de soi (« je suis paresseux », « je ne vaux rien »)"
+ ]}
+];
+let answers={}, cur=0, done=false;
+function start(){cur=0;answers={};document.getElementById("s-intro").classList.remove("active");show();}
+function show(){
+  const s=SECTIONS[cur];
+  document.getElementById("s-quiz").classList.add("active");
+  document.getElementById("s-loading").classList.remove("active");
+  document.getElementById("s-result").classList.remove("active");
+  document.getElementById("tag").textContent=s.tag;
+  document.getElementById("stitle").textContent=s.title;
+  document.getElementById("ssub").textContent=s.sub;
+  document.getElementById("cnt").textContent="Étape "+(cur+1)+" sur "+SECTIONS.length;
+  document.getElementById("bar").firstElementChild.style.width=Math.round(cur/SECTIONS.length*100)+"%";
+  document.getElementById("prev").style.visibility=cur===0?"hidden":"visible";
+  document.getElementById("next").textContent=cur===SECTIONS.length-1?"Calculer les résultats":"Suivant →";
+  const box=document.getElementById("items");box.innerHTML="";
+  s.items.forEach((txt,i)=>{
+    const key=s.id+"_"+(i+1);
+    const div=document.createElement("div");div.className="item";
+    div.innerHTML='<div class="q"><span class="n">'+(i+1)+'.</span>'+txt+'</div>';
+    const sc=document.createElement("div");sc.className="scale";
+    SCALE.forEach((sv,si)=>{
+      const b=document.createElement("button");
+      b.innerHTML="<b>"+sv[0]+"</b>"+sv[1];
+      if(answers[key]===si)b.classList.add("sel");
+      b.onclick=()=>{answers[key]=si;[...sc.children].forEach((x,j)=>x.classList.toggle("sel",j===si));};
+      sc.appendChild(b);
+    });
+    div.appendChild(sc);box.appendChild(div);
+  });
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function prev(){if(cur>0){cur--;show();}}
+function next(){
+  const s=SECTIONS[cur];
+  let missing=0;
+  s.items.forEach((txt,i)=>{if(answers[s.id+"_"+(i+1)]===undefined)missing++;});
+  if(missing>0){alert("Répondez à toutes les questions de cette étape ("+missing+" manquantes).");return;}
+  cur++;
+  if(cur<SECTIONS.length){show();}else{finish();}
+}
+function finish(){
+  document.getElementById("s-quiz").classList.remove("active");
+  document.getElementById("s-loading").classList.add("active");
+  window.scrollTo({top:0});
+  setTimeout(()=>{document.getElementById("s-loading").classList.remove("active");document.getElementById("s-result").classList.add("active");render();},1200);
+}
+function countGe2(sec){let c=0;for(let i=1;i<=SECTIONS.find(s=>s.id===sec).items.length;i++){if((answers[sec+"_"+i]||0)>=2)c++;}return c;}
+function sumSec(sec){let t=0;for(let i=1;i<=SECTIONS.find(s=>s.id===sec).items.length;i++){t+=(answers[sec+"_"+i]||0);}return t;}
+function render(){
+  const dis=countGe2("A1"),hip=countGe2("A2"),B=countGe2("B"),C=countGe2("C"),D=sumSec("D");
+  const partA=countGe2("A1")+countGe2("A2"); // pour le pattern
+  const aA=[1,2,3,4,5,6].filter(i=>(answers["A1_"+i]||0)>=2).length; // Partie A ASRS = 6 premiers items inattention
+  const totA=sumSec("A1")+sumSec("A2");
+  // présentation
+  let pres="sous le seuil";
+  if(dis>=5&&hip>=5)pres="combinée";
+  else if(dis>=5)pres="inattentive";
+  else if(hip>=5)pres="hyperactive-impulsive";
+  // sévérité
+  let grav= totA<=16?"peu de symptômes": totA<=28?"symptômes modérés": totA<=40?"symptômes élevés":"symptômes sévères";
+  // algorithme 5 points
+  const p1=aA>=4, p2=B>=5, p3=pres!=="sous le seuil", p4=C>=6, p5=D>=10;
+  const pts=[p1,p2,p3,p4,p5].filter(Boolean).length;
+  let verdict, verdictBig;
+  if(pts===5){verdictBig="Probabilité ÉLEVÉE de TDAH adulte";verdict="Les 5 critères sont satisfaits. La confirmation formelle relève d'un spécialiste (anamnèse + entretien + tests standardisés).";}
+  else if(pts===4){verdictBig="Probabilité HAUTE (4/5)";verdict="Il manque un critère (souvent l'apparition infantile) : possible TDAH à apparition tardive non reconnu, ou symptômes secondaires à autre chose (anxiété, dépression, burnout, hypersomnie).";}
+  else if(pts===3){verdictBig="Probabilité MODÉRÉE (3/5)";verdict="Quelques signaux présents mais le tableau n'est pas convergent. Évaluation clinique conseillée pour clarifier.";}
+  else{verdictBig="Probabilité FAIBLE ("+pts+"/5)";verdict="Les symptômes rapportés sont sous le seuil ou non cohérents dans le temps. Les troubles anxieux, l'humeur dépressive et le burnout peuvent imiter le TDAH.";}
+  const el=document.getElementById("rescard");
+  el.innerHTML=
+    '<div class="verdict"><div class="big">'+verdictBig+'</div><p>'+verdict+'</p></div>'+
+    '<div class="res-sec"><h3>Scores</h3><ul>'+
+    '<li>Inattention (9 items) : <b>'+dis+'</b> symptômes avec fréquence ≥ 2 (seuil DSM-5 adultes : ≥ 5)</li>'+
+    '<li>Hyperactivité/impulsivité (9 items) : <b>'+hip+'</b> symptômes ≥ 2 (seuil : ≥ 5)</li>'+
+    '<li>Présentation : <b>'+pres+'</b></li>'+
+    '<li>Enfance 5-12 ans (12 items) : <b>'+B+'</b> symptômes ≥ 2 (seuil apparition précoce : ≥ 5)</li>'+
+    '<li>Informant (12 items) : <b>'+C+'</b> symptômes ≥ 2 (convergence : ≥ 6)</li>'+
+    '<li>Impact fonctionnel (0-40) : <b>'+D+'</b> ('+(D<=9?"faible":D<=19?"modéré":D<=29?"élevé":"sévère")+')</li>'+
+    '<li>Sévérité subjective ASRS (0-72) : <b>'+totA+'</b> ('+grav+')</li></ul></div>'+
+    '<div class="res-sec"><h3>Algorithme décisionnel (5 points)</h3><div class="checks">'+
+    '<div class="'+(p1?"yes":"")+'">1. Dépistage ASRS Partie A positif (≥4 sur 6 avec ≥2)</div>'+
+    '<div class="'+(p2?"yes":"")+'">2. Apparition précoce confirmée (enfance ≥5 sur 12)</div>'+
+    '<div class="'+(p3?"yes":"")+'">3. Pattern défini (inattentive / hyperactive / combinée)</div>'+
+    '<div class="'+(p4?"yes":"")+'">4. Convergence informant (≥6 items sur 12)</div>'+
+    '<div class="'+(p5?"yes":"")+'">5. Altération fonctionnelle réelle (impact ≥10)</div></div></div>'+
+    (p3&&pres!=="sous le seuil"&&p4?"":'<div class="res-sec"><h3>Note</h3><p style="font-size:14px;color:var(--ink-soft)">'+
+      (p4?"":"Si l'informant ne confirme pas : il peut y avoir sous-estimation, masquage (stratégies compensatoires : listes, applis, partenaire qui organise) ou contextes différents. Demande-toi : « comment ça va quand le système de soutien saute ? ».")+
+      (p4?"":" ")+(p2?"":"Si l'enfance n'est pas claire, demande aux parents ou aux frères et sœurs : le DSM-5 exige une apparition avant 12 ans.")+'</p></div>')+
+    '<div class="note">Les femmes et la présentation inattentive sont les plus sous-diagnostiqués. L\'hyperactivité adulte est souvent une simple agitation interne. Faux positifs possibles dus à l\'anxiété, la dépression, le burnout. Comorbidités fréquentes : anxiété, dépression, troubles du sommeil.</div>';
+  const pv=document.getElementById("print-view");
+  pv.innerHTML='<div class="card"><div class="verdict"><div class="big">'+verdictBig+'</div><p>'+verdict+'</p></div></div>'+
+    '<div class="card"><h2 style="font-size:18px;margin-bottom:12px">Récapitulatif des réponses</h2>';
+  SECTIONS.forEach(s=>{
+    pv.innerHTML+='<h3 style="font-size:13px;color:var(--accent);margin:14px 0 6px">'+s.title+'</h3>';
+    s.items.forEach((txt,i)=>{const v=answers[s.id+"_"+(i+1)];pv.innerHTML+='<p style="font-size:12px;margin:2px 0">'+(i+1)+'. '+txt+' — <b>'+SCALE[v][1]+'</b></p>';});
+  });
+  pv.innerHTML+='</div>';
+}
+function restart(){cur=0;answers={};document.getElementById("s-result").classList.remove("active");document.getElementById("s-intro").classList.add("active");window.scrollTo({top:0});}
+</script>
+</body>
+</html>
