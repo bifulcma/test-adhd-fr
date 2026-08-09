@@ -105,7 +105,7 @@
 <section id="s-loading" class="screen">
   <div class="card" style="text-align:center;padding:50px 20px">
     <div style="font-size:40px">🧮</div>
-    <p style="margin-top:12px;color:var(--ink-soft)">Calcul des scores...</p>
+    <p style="margin-top:12px;color:var(--ink-soft)">Calcul des résultats...</p>
   </div>
 </section>
 
@@ -148,14 +148,14 @@ const SECTIONS=[
    "J'interromps ou je m'immisce dans les conversations des autres",
    "J'agis par impulsion puis je le regrette (achats, commentaires, décisions)"
  ]},
- {id:"B",title:"Comment tu étais enfant (5–12 ans)",sub:"Crucial : le DSM-5 exige des symptômes présents avant 12 ans. Rappelle-toi l'école primaire, les récits des parents, les bulletins.",tag:"Section B · 3/4",
+ {id:"B",title:"Comment vous étiez enfant (5–12 ans)",sub:"Crucial : le DSM-5 exige des symptômes présents avant 12 ans. Rappelez-vous l'école primaire, les récits des parents, les bulletins scolaires.",tag:"Section B · 3/4",
   items:[
    "On me disait que je « rêvais les yeux ouverts » ou que je n'étais pas attentif",
    "Devoirs non finis en classe ou rendus en retard",
    "Je perdais mon matériel scolaire (trousse, agenda, cahiers)",
    "Erreurs banales sur des choses que je savais, je sautais les détails",
    "Je me distrayais avec n'importe quoi (bruit, fenêtre, camarade)",
-   "Jamais immobile sur la chaise, je me levais, je touchais à tout",
+   "Jamais immobile sur ma chaise, je me levais, je touchais à tout",
    "Plus remuant que les autres, jeux physiques déplacés",
    "Je parlais énormément, même hors de propos",
    "J'interrompais, je répondais avant les questions",
@@ -187,7 +187,7 @@ const SECTIONS=[
    "Conduite (distractions, accidents, amendes)",
    "Sommeil (endormissement, cycle irrégulier, rumination)",
    "Organisation domestique (maison en désordre, échéances, courses)",
-   "Cécité au temps (je sous-estime les durées, « 5 minutes » qui en font 40)",
+   "Mauvaise perception du temps (je sous-estime les durées, « 5 minutes » qui en font 40)",
    "Régulation émotionnelle (crises, hypersensibilité au rejet)",
    "Estime de soi (« je suis paresseux », « je ne vaux rien »)"
  ]}
@@ -268,13 +268,13 @@ function render(){
     '<li>Hyperactivité/impulsivité (9 items) : <b>'+hip+'</b> symptômes ≥ 2 (seuil : ≥ 5)</li>'+
     '<li>Présentation : <b>'+pres+'</b></li>'+
     '<li>Enfance 5-12 ans (12 items) : <b>'+B+'</b> symptômes ≥ 2 (seuil apparition précoce : ≥ 5)</li>'+
-    '<li>Informant (12 items) : <b>'+C+'</b> symptômes ≥ 2 (convergence : ≥ 6)</li>'+
+    '<li>Proche informant (12 items) : <b>'+C+'</b> symptômes ≥ 2 (convergence : ≥ 6)</li>'+
     '<li>Impact fonctionnel (0-40) : <b>'+D+'</b> ('+(D<=9?"faible":D<=19?"modéré":D<=29?"élevé":"sévère")+')</li>'+
     '<li>Sévérité subjective ASRS (0-72) : <b>'+totA+'</b> ('+grav+')</li></ul></div>'+
     '<div class="res-sec"><h3>Algorithme décisionnel (5 points)</h3><div class="checks">'+
     '<div class="'+(p1?"yes":"")+'">1. Dépistage ASRS Partie A positif (≥4 sur 6 avec ≥2)</div>'+
     '<div class="'+(p2?"yes":"")+'">2. Apparition précoce confirmée (enfance ≥5 sur 12)</div>'+
-    '<div class="'+(p3?"yes":"")+'">3. Pattern défini (inattentive / hyperactive / combinée)</div>'+
+    '<div class="'+(p3?"yes":"")+'">3. Présentation définie (inattentive / hyperactive / combinée)</div>'+
     '<div class="'+(p4?"yes":"")+'">4. Convergence informant (≥6 items sur 12)</div>'+
     '<div class="'+(p5?"yes":"")+'">5. Altération fonctionnelle réelle (impact ≥10)</div></div></div>'+
     (p3&&pres!=="sous le seuil"&&p4?"":'<div class="res-sec"><h3>Note</h3><p style="font-size:14px;color:var(--ink-soft)">'+
